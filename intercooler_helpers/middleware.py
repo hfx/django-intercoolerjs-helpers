@@ -57,16 +57,14 @@ class HttpMethodOverride(MiddlewareMixin):
                 request.method = newmethod
                 request.changed_method = True
                 return
-                
-def _is_ajax(self):
-    return self.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
 
 def _maybe_intercooler(self):
     return self.META.get('HTTP_X_IC_REQUEST') == 'true'
 
 
 def _is_intercooler(self):
-    return self.is_ajax() and self.maybe_intercooler()
+    is_ajax = self.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest'
+    return is_ajax and self.maybe_intercooler()
 
 
 @contextmanager
