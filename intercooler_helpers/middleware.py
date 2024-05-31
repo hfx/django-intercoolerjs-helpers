@@ -10,7 +10,10 @@ try:
 except ImportError:  # Django <1.10
     from django.core.urlresolvers import Resolver404, resolve
 from django.utils.functional import SimpleLazyObject
-from django.utils.six.moves.urllib.parse import urlparse
+try:
+    from django.utils.six.moves.urllib.parse import urlparse
+except ModuleNotFoundError: # Django > 3.0
+    import urllib.parse as urlparse
 try:
     from django.utils.deprecation import MiddlewareMixin
 except ImportError:  # < Django 1.10
